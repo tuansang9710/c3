@@ -60,12 +60,12 @@ You will need to install the following locally:
 
 ## Monthly Cost Analysis
 Complete a month cost analysis of each Azure resource to give an estimate total cost using the table below:
-
 | Azure Resource | Service Tier | Monthly Cost |
+| ------------ | ------------ | ------------ |
 | *Azure Postgres Database* | Burstable | 23.40 USD |
 | *Azure Service Bus* | Basic | 0.05 USD |
 | *Azure App Service* | Basic B1	| 13.14 USD |
-| *Azure Function App* | Consumption | FREE |
+| *Azure Function App* | Consumption | 0.8 USD |
 
 ## Architecture Explanation
 ### Azure App Service
