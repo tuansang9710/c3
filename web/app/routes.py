@@ -41,7 +41,7 @@ def registration():
             session.pop('message', None)
             return render_template('registration.html', message=message)
         else:
-             return render_template('registration.html')
+            return render_template('registration.html')
 
 @app.route('/Attendees')
 def attendees():
@@ -65,23 +65,19 @@ def notification():
 
         try:
             db.session.add(notification)
+            db.session.flush()
+            notification_id = notification.id
             db.session.commit()
 
             ##################################################
             ## TODO: Refactor This logic into an Azure Function
             ## Code below will be replaced by a message queue
             #################################################
-            attendees = Attendee.query.all()
-
-            for attendee in attendees:
-                subject = '{}: {}'.format(attendee.first_name, notification.subject)
-                send_email(attendee.email, subject, notification.message)
-
-            notification.completed_date = datetime.utcnow()
-            notification.status = 'Notified {} attendees'.format(len(attendees))
-            db.session.commit()
+            
+            message = Message(str(notification_id))
+            
             # TODO Call servicebus queue_client to enqueue notification ID
-
+            queue_client.send(message)
             #################################################
             ## END of TODO
             #################################################

@@ -62,10 +62,17 @@ You will need to install the following locally:
 Complete a month cost analysis of each Azure resource to give an estimate total cost using the table below:
 
 | Azure Resource | Service Tier | Monthly Cost |
-| ------------ | ------------ | ------------ |
-| *Azure Postgres Database* |     |              |
-| *Azure Service Bus*   |         |              |
-| ...                   |         |              |
+| *Azure Postgres Database* | Burstable | 23.40 USD |
+| *Azure Service Bus* | Basic | 0.05 USD |
+| *Azure App Service* | Basic B1	| 13.14 USD |
+| *Azure Function App* | Consumption | FREE |
 
 ## Architecture Explanation
-This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
+### Azure App Service
+Choose Azure App Service. It handles server management, scales automatically, and lets you focus on code. It's often cheaper than VMs and offers built-in features. VMs offer more control but require more work – ideal for specific needs or legacy apps.
+### Azure Service Bus
+Reducing the load on the website, instead of having to wait for the email to be sent successfully, the service bus will take care of sending the email, without affecting the performance of the website.
+### Azure Postgres Database
+The Azure Database for PostgreSQL flexible server is used as service for the database, that has been migrated from the backup, can auto-scaling, very cost effective - pay per second for what you use, good performance.
+### Azure Function App
+When the web publishes event to Server Bus, the Service Bus triggers to Azure Functions to performs email sending functionality. Furthermore, Azure functionality is very cost-effective.
